@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 
 interface InputGroupProps {
   label: string;
-  id: string;
+  id?: string;
   value: string | number;
   onChange: (value: string) => void;
   type?: string;
@@ -29,9 +29,10 @@ export const InputGroup = ({
   max,
   step,
 }: InputGroupProps) => {
+  const inputId = id || label.toLowerCase().replace(/\s+/g, '-');
   return (
     <div className="space-y-2">
-      <Label htmlFor={id} className="text-sm font-medium text-foreground">
+      <Label htmlFor={inputId} className="text-sm font-medium text-foreground">
         {label}
       </Label>
       <div className="relative">
@@ -41,7 +42,7 @@ export const InputGroup = ({
           </div>
         )}
         <Input
-          id={id}
+          id={inputId}
           type={type}
           value={value}
           onChange={(e) => onChange(e.target.value)}
