@@ -29,16 +29,34 @@ import AmortizationCalculator from "./pages/finance/AmortizationCalculator";
 // Health Calculators
 import BMICalculator from "./pages/health/BMICalculator";
 import CalorieCalculator from "./pages/health/CalorieCalculator";
+import BodyFatCalculator from "./pages/health/BodyFatCalculator";
+import BMRCalculator from "./pages/health/BMRCalculator";
+import IdealWeightCalculator from "./pages/health/IdealWeightCalculator";
+import PaceCalculator from "./pages/health/PaceCalculator";
+import PregnancyCalculator from "./pages/health/PregnancyCalculator";
+import DueDateCalculator from "./pages/health/DueDateCalculator";
+import WaterIntakeCalculator from "./pages/health/WaterIntakeCalculator";
+import ProteinIntakeCalculator from "./pages/health/ProteinIntakeCalculator";
 
 // Math Calculators
 import PercentageCalculator from "./pages/math/PercentageCalculator";
 import ScientificCalculator from "./pages/math/ScientificCalculator";
 import RandomNumberGenerator from "./pages/math/RandomNumberGenerator";
+import FractionCalculator from "./pages/math/FractionCalculator";
+import TriangleCalculator from "./pages/math/TriangleCalculator";
+import StandardDeviationCalculator from "./pages/math/StandardDeviationCalculator";
 
 // Tools
 import AgeCalculator from "./pages/tools/AgeCalculator";
 import PasswordGenerator from "./pages/tools/PasswordGenerator";
 import GPACalculator from "./pages/tools/GPACalculator";
+import DateCalculator from "./pages/tools/DateCalculator";
+import TimeCalculator from "./pages/tools/TimeCalculator";
+import HoursCalculator from "./pages/tools/HoursCalculator";
+import GradeCalculator from "./pages/tools/GradeCalculator";
+import ConcreteCalculator from "./pages/tools/ConcreteCalculator";
+import SubnetCalculator from "./pages/tools/SubnetCalculator";
+import UnitConverter from "./pages/tools/UnitConverter";
 
 const queryClient = new QueryClient();
 
@@ -70,20 +88,37 @@ const App = () => (
           <Route path="/health" element={<HealthCategory />} />
           <Route path="/health/bmi" element={<BMICalculator />} />
           <Route path="/health/calorie" element={<CalorieCalculator />} />
+          <Route path="/health/body-fat" element={<BodyFatCalculator />} />
+          <Route path="/health/bmr" element={<BMRCalculator />} />
+          <Route path="/health/ideal-weight" element={<IdealWeightCalculator />} />
+          <Route path="/health/pace" element={<PaceCalculator />} />
+          <Route path="/health/pregnancy" element={<PregnancyCalculator />} />
+          <Route path="/health/due-date" element={<DueDateCalculator />} />
+          <Route path="/health/water-intake" element={<WaterIntakeCalculator />} />
+          <Route path="/health/protein-intake" element={<ProteinIntakeCalculator />} />
           
           {/* Math Routes */}
           <Route path="/math" element={<MathCategory />} />
           <Route path="/math/percentage" element={<PercentageCalculator />} />
           <Route path="/math/scientific" element={<ScientificCalculator />} />
           <Route path="/math/random" element={<RandomNumberGenerator />} />
+          <Route path="/math/fraction" element={<FractionCalculator />} />
+          <Route path="/math/triangle" element={<TriangleCalculator />} />
+          <Route path="/math/standard-deviation" element={<StandardDeviationCalculator />} />
           
           {/* Tools Routes */}
           <Route path="/tools" element={<ToolsCategory />} />
           <Route path="/tools/age" element={<AgeCalculator />} />
           <Route path="/tools/password" element={<PasswordGenerator />} />
           <Route path="/tools/gpa" element={<GPACalculator />} />
+          <Route path="/tools/date" element={<DateCalculator />} />
+          <Route path="/tools/time" element={<TimeCalculator />} />
+          <Route path="/tools/hours" element={<HoursCalculator />} />
+          <Route path="/tools/grade" element={<GradeCalculator />} />
+          <Route path="/tools/concrete" element={<ConcreteCalculator />} />
+          <Route path="/tools/subnet" element={<SubnetCalculator />} />
+          <Route path="/tools/conversion" element={<UnitConverter />} />
           
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
