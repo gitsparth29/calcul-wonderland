@@ -225,3 +225,49 @@
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
 }
+
+/* Print Styles */
+@media print {
+  body {
+    background: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .print\\:hidden {
+    display: none !important;
+  }
+
+  .bg-gradient-hero,
+  .bg-gradient-primary,
+  .bg-gradient-card {
+    background: white !important;
+  }
+
+  [data-print-section] {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  [data-result-card] {
+    border: 1px solid #e5e5e5 !important;
+    background: white !important;
+    margin-bottom: 8px;
+  }
+
+  [data-result-card][data-highlight="true"] {
+    background: #f0f9ff !important;
+    border-color: #0369a1 !important;
+  }
+
+  .shadow-soft,
+  .shadow-medium,
+  .shadow-large {
+    box-shadow: none !important;
+  }
+
+  @page {
+    margin: 1in;
+    size: letter portrait;
+  }
+}
