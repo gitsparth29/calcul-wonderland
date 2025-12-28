@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { InputGroup } from "@/components/calculator/InputGroup";
 import { ResultCard } from "@/components/calculator/ResultCard";
+import { GrowthChart } from "@/components/charts/GrowthChart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -18,6 +19,7 @@ const CompoundInterestCalculator = () => {
     futureValue: number;
     totalContributions: number;
     totalInterest: number;
+    yearlyData: { year: number; balance: number; contributions: number; interest: number }[];
   } | null>(null);
 
   const calculate = () => {
@@ -29,22 +31,41 @@ const CompoundInterestCalculator = () => {
 
     if (isNaN(P) || isNaN(r) || isNaN(t) || isNaN(n)) return;
 
-    // Future value of principal
-    const FV_principal = P * Math.pow(1 + r / n, n * t);
-
-    // Future value of monthly contributions (annuity)
-    let FV_contributions = 0;
-    if (PMT > 0) {
-      const periodicRate = r / 12;
-      const totalPeriods = t * 12;
-      FV_contributions = PMT * ((Math.pow(1 + periodicRate, totalPeriods) - 1) / periodicRate);
+    // Generate yearly data for chart
+    const yearlyData: { year: number; balance: number; contributions: number; interest: number }[] = [];
+    
+    for (let year = 0; year <= t; year++) {
+      // Future value of principal at this year
+      const FV_principal = P * Math.pow(1 + r / n, n * year);
+      
+      // Future value of monthly contributions at this year
+      let FV_contributions = 0;
+      if (PMT > 0 && year > 0) {
+        const periodicRate = r / 12;
+        const totalPeriods = year * 12;
+        FV_contributions = PMT * ((Math.pow(1 + periodicRate, totalPeriods) - 1) / periodicRate);
+      }
+      
+      const balance = FV_principal + FV_contributions;
+      const totalContributed = P + PMT * year * 12;
+      const interestEarned = balance - totalContributed;
+      
+      yearlyData.push({
+        year,
+        balance,
+        contributions: totalContributed,
+        interest: Math.max(0, interestEarned),
+      });
     }
 
-    const futureValue = FV_principal + FV_contributions;
-    const totalContributions = P + PMT * t * 12;
-    const totalInterest = futureValue - totalContributions;
-
-    setResults({ futureValue, totalContributions, totalInterest });
+    const finalData = yearlyData[yearlyData.length - 1];
+    
+    setResults({ 
+      futureValue: finalData.balance, 
+      totalContributions: finalData.contributions, 
+      totalInterest: finalData.interest,
+      yearlyData,
+    });
   };
 
   const formatCurrency = (value: number) =>
@@ -91,7 +112,7 @@ const CompoundInterestCalculator = () => {
             <div className="space-y-2">
               <Label>Compound Frequency</Label>
               <Select value={compound} onValueChange={setCompound}>
-                <SelectTrigger>
+                <SelectTrigger className="bg-background">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -133,6 +154,12 @@ const CompoundInterestCalculator = () => {
           />
         </div>
       </div>
+
+      {results && results.yearlyData.length > 0 && (
+        <div className="mt-8">
+          <GrowthChart data={results.yearlyData} title="Investment Growth Over Time" />
+        </div>
+      )}
     </CalculatorLayout>
   );
 };
