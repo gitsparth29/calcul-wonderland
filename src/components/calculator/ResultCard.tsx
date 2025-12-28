@@ -12,6 +12,8 @@ interface ResultCardProps {
 export const ResultCard = ({ label, value, highlight, icon, subtext }: ResultCardProps) => {
   return (
     <div
+      data-result-card
+      data-highlight={highlight}
       className={cn(
         "rounded-xl p-5 transition-all duration-300",
         highlight
@@ -21,10 +23,16 @@ export const ResultCard = ({ label, value, highlight, icon, subtext }: ResultCar
     >
       <div className="flex items-start justify-between">
         <div>
-          <p className={cn("text-sm font-medium mb-1", highlight ? "text-primary-foreground/80" : "text-muted-foreground")}>
+          <p 
+            data-result-label
+            className={cn("text-sm font-medium mb-1", highlight ? "text-primary-foreground/80" : "text-muted-foreground")}
+          >
             {label}
           </p>
-          <p className={cn("font-heading text-2xl md:text-3xl font-bold", highlight ? "text-primary-foreground" : "text-foreground")}>
+          <p 
+            data-result-value
+            className={cn("font-heading text-2xl md:text-3xl font-bold", highlight ? "text-primary-foreground" : "text-foreground")}
+          >
             {value}
           </p>
           {subtext && (
@@ -34,7 +42,7 @@ export const ResultCard = ({ label, value, highlight, icon, subtext }: ResultCar
           )}
         </div>
         {icon && (
-          <div className={cn("p-2 rounded-lg", highlight ? "bg-primary-foreground/10" : "bg-muted")}>
+          <div className={cn("p-2 rounded-lg print:hidden", highlight ? "bg-primary-foreground/10" : "bg-muted")}>
             {icon}
           </div>
         )}
