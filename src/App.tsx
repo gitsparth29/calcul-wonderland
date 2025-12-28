@@ -25,6 +25,9 @@ import SalaryCalculator from "./pages/finance/SalaryCalculator";
 import SalesTaxCalculator from "./pages/finance/SalesTaxCalculator";
 import DebtPayoffCalculator from "./pages/finance/DebtPayoffCalculator";
 import AmortizationCalculator from "./pages/finance/AmortizationCalculator";
+import InflationCalculator from "./pages/finance/InflationCalculator";
+import IncomeTaxCalculator from "./pages/finance/IncomeTaxCalculator";
+import PaymentCalculator from "./pages/finance/PaymentCalculator";
 
 // Health Calculators
 import BMICalculator from "./pages/health/BMICalculator";
@@ -83,6 +86,9 @@ const App = () => (
           <Route path="/finance/sales-tax" element={<SalesTaxCalculator />} />
           <Route path="/finance/debt-payoff" element={<DebtPayoffCalculator />} />
           <Route path="/finance/amortization" element={<AmortizationCalculator />} />
+          <Route path="/finance/inflation" element={<InflationCalculator />} />
+          <Route path="/finance/income-tax" element={<IncomeTaxCalculator />} />
+          <Route path="/finance/payment" element={<PaymentCalculator />} />
           
           {/* Health Routes */}
           <Route path="/health" element={<HealthCategory />} />
