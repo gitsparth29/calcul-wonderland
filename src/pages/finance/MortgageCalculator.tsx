@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/Footer";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { InputGroup } from "@/components/calculator/InputGroup";
 import { ResultCard } from "@/components/calculator/ResultCard";
+import { PaymentBreakdownChart } from "@/components/charts/PaymentBreakdownChart";
 import { Button } from "@/components/ui/button";
 import { Home, DollarSign, Calendar, TrendingUp } from "lucide-react";
 
@@ -165,6 +166,17 @@ const MortgageCalculator = () => {
               )}
             </div>
           </div>
+
+          {/* Chart Section */}
+          {results && (
+            <div className="mt-8">
+              <PaymentBreakdownChart 
+                principal={results.loanAmount} 
+                interest={results.totalInterest}
+                title="Total Cost Breakdown"
+              />
+            </div>
+          )}
         </CalculatorLayout>
       </main>
       <Footer />
