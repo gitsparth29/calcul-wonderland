@@ -36,6 +36,12 @@ const calculators = [
     path: "/finance/auto-loan",
   },
   {
+    title: "Payment Calculator",
+    description: "Calculate monthly payments for any loan",
+    icon: <CreditCard className="h-5 w-5" />,
+    path: "/finance/payment",
+  },
+  {
     title: "Compound Interest",
     description: "See how your investments grow over time",
     icon: <TrendingUp className="h-5 w-5" />,
@@ -64,6 +70,18 @@ const calculators = [
     description: "Calculate interest rates from payment info",
     icon: <Percent className="h-5 w-5" />,
     path: "/finance/interest-rate",
+  },
+  {
+    title: "Inflation Calculator",
+    description: "See how inflation affects purchasing power",
+    icon: <TrendingUp className="h-5 w-5" />,
+    path: "/finance/inflation",
+  },
+  {
+    title: "Income Tax Calculator",
+    description: "Estimate your federal income tax",
+    icon: <Receipt className="h-5 w-5" />,
+    path: "/finance/income-tax",
   },
   {
     title: "Salary Calculator",

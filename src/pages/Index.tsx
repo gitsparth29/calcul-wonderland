@@ -2,6 +2,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CategoryCard } from "@/components/home/CategoryCard";
 import { CalculatorCard } from "@/components/home/CalculatorCard";
+import { SearchBar } from "@/components/home/SearchBar";
 import { Button } from "@/components/ui/button";
 import { 
   DollarSign, 
@@ -124,6 +125,11 @@ const Index = () => {
               <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
                 Quick, accurate, and easy-to-use calculators for finance, health, math, and everyday tasks. No signup required.
               </p>
+              
+              <div className="mb-8">
+                <SearchBar />
+              </div>
+              
               <div className="flex flex-wrap justify-center gap-4">
                 <Button variant="hero" size="lg" asChild>
                   <a href="#categories">
