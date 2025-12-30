@@ -85,6 +85,9 @@ const PaceCalculator = () => {
       backLink="/health"
       backLabel="Health Calculators"
       icon={<Timer className="h-8 w-8 text-primary-foreground" />}
+      category="Health"
+      canonicalPath="/health/pace"
+      keywords={["running pace calculator", "speed calculator", "marathon pace", "split time calculator"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

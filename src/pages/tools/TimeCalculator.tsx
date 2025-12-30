@@ -70,6 +70,9 @@ const TimeCalculator = () => {
       backLink="/tools"
       backLabel="Utility Tools"
       icon={<Clock className="h-8 w-8 text-primary-foreground" />}
+      category="Tools"
+      canonicalPath="/tools/time"
+      keywords={["time duration calculator", "add time", "hours minutes calculator"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

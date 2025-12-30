@@ -77,6 +77,9 @@ const PaymentCalculator = () => {
       icon={<CreditCard className="h-6 w-6 text-primary-foreground" />}
       backLink="/finance"
       backLabel="Finance Calculators"
+      category="Finance"
+      canonicalPath="/finance/payment"
+      keywords={["monthly payment calculator", "loan payment", "finance calculator"]}
     >
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-4">

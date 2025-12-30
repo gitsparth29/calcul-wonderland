@@ -49,6 +49,9 @@ const SalesTaxCalculator = () => {
       backLink="/finance"
       backLabel="Finance Calculators"
       icon={<Receipt className="h-8 w-8 text-primary-foreground" />}
+      category="Finance"
+      canonicalPath="/finance/sales-tax"
+      keywords={["tax calculator", "reverse sales tax", "price before tax"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

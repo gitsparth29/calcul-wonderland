@@ -78,6 +78,9 @@ const CompoundInterestCalculator = () => {
       backLink="/finance"
       backLabel="Finance Calculators"
       icon={<TrendingUp className="h-8 w-8 text-primary-foreground" />}
+      category="Finance"
+      canonicalPath="/finance/compound-interest"
+      keywords={["compound interest formula", "investment growth calculator", "interest calculator", "savings calculator"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

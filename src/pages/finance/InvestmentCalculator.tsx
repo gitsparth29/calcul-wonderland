@@ -51,6 +51,9 @@ const InvestmentCalculator = () => {
       backLink="/finance"
       backLabel="Finance Calculators"
       icon={<PiggyBank className="h-8 w-8 text-primary-foreground" />}
+      category="Finance"
+      canonicalPath="/finance/investment"
+      keywords={["investment return calculator", "roi calculator", "stock investment calculator"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

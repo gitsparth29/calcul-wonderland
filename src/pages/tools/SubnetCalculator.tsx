@@ -96,6 +96,9 @@ const SubnetCalculator = () => {
       backLink="/tools"
       backLabel="Utility Tools"
       icon={<Network className="h-8 w-8 text-primary-foreground" />}
+      category="Tools"
+      canonicalPath="/tools/subnet"
+      keywords={["ip subnet calculator", "cidr calculator", "network calculator"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

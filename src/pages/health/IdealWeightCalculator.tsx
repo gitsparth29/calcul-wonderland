@@ -67,6 +67,9 @@ const IdealWeightCalculator = () => {
       backLink="/health"
       backLabel="Health Calculators"
       icon={<Target className="h-8 w-8 text-primary-foreground" />}
+      category="Health"
+      canonicalPath="/health/ideal-weight"
+      keywords={["ideal body weight", "healthy weight calculator", "target weight"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

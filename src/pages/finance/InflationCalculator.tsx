@@ -52,6 +52,9 @@ const InflationCalculator = () => {
       icon={<TrendingUp className="h-6 w-6 text-primary-foreground" />}
       backLink="/finance"
       backLabel="Finance Calculators"
+      category="Finance"
+      canonicalPath="/finance/inflation"
+      keywords={["purchasing power calculator", "cpi calculator", "inflation rate"]}
     >
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-4">

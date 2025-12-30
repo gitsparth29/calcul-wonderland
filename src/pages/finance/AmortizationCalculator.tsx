@@ -95,6 +95,9 @@ const AmortizationCalculator = () => {
       backLink="/finance"
       backLabel="Finance Calculators"
       icon={<Calculator className="h-8 w-8 text-primary-foreground" />}
+      category="Finance"
+      canonicalPath="/finance/amortization"
+      keywords={["amortization schedule", "loan schedule", "payment schedule calculator"]}
     >
       <div className="space-y-6">
         <Card className="shadow-medium">

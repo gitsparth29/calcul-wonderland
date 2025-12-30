@@ -63,6 +63,9 @@ const InterestRateCalculator = () => {
       backLink="/finance"
       backLabel="Finance Calculators"
       icon={<Percent className="h-8 w-8 text-primary-foreground" />}
+      category="Finance"
+      canonicalPath="/finance/interest-rate"
+      keywords={["apr calculator", "find interest rate", "loan rate calculator"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

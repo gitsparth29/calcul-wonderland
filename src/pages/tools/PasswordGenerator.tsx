@@ -37,7 +37,7 @@ const PasswordGenerator = () => {
   };
 
   return (
-    <CalculatorLayout title="Password Generator" description="Generate secure random passwords" backLink="/tools" backLabel="Utility Tools" icon={<Key className="h-8 w-8 text-primary-foreground" />}>
+    <CalculatorLayout title="Password Generator" description="Generate secure random passwords" backLink="/tools" backLabel="Utility Tools" icon={<Key className="h-8 w-8 text-primary-foreground" />} category="Tools" canonicalPath="/tools/password" keywords={["random password generator", "secure password", "strong password"]}>
       <Card className="shadow-medium max-w-lg mx-auto">
         <CardHeader><CardTitle>Generate Password</CardTitle></CardHeader>
         <CardContent className="space-y-6">

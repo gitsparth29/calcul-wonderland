@@ -75,6 +75,9 @@ const ConcreteCalculator = () => {
       backLink="/tools"
       backLabel="Utility Tools"
       icon={<Box className="h-8 w-8 text-primary-foreground" />}
+      category="Tools"
+      canonicalPath="/tools/concrete"
+      keywords={["concrete volume calculator", "cubic yards calculator", "cement calculator"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

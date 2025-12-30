@@ -26,7 +26,7 @@ const RandomNumberGenerator = () => {
   };
 
   return (
-    <CalculatorLayout title="Random Number Generator" description="Generate random numbers in any range" backLink="/math" backLabel="Math Calculators" icon={<Shuffle className="h-8 w-8 text-primary-foreground" />}>
+    <CalculatorLayout title="Random Number Generator" description="Generate random numbers in any range" backLink="/math" backLabel="Math Calculators" icon={<Shuffle className="h-8 w-8 text-primary-foreground" />} category="Math" canonicalPath="/math/random" keywords={["random number picker", "rng", "lottery number generator"]}>
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">
           <CardHeader><CardTitle>Settings</CardTitle></CardHeader>

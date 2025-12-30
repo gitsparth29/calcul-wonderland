@@ -61,6 +61,9 @@ const PregnancyCalculator = () => {
       backLink="/health"
       backLabel="Health Calculators"
       icon={<Baby className="h-8 w-8 text-primary-foreground" />}
+      category="Health"
+      canonicalPath="/health/pregnancy"
+      keywords={["pregnancy tracker", "pregnancy week calculator", "trimester calculator"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

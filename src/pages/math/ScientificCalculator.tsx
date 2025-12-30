@@ -62,7 +62,7 @@ const ScientificCalculator = () => {
   };
 
   return (
-    <CalculatorLayout title="Scientific Calculator" description="Advanced mathematical calculations" backLink="/math" backLabel="Math Calculators" icon={<Calculator className="h-8 w-8 text-primary-foreground" />}>
+    <CalculatorLayout title="Scientific Calculator" description="Advanced mathematical calculations" backLink="/math" backLabel="Math Calculators" icon={<Calculator className="h-8 w-8 text-primary-foreground" />} category="Math" canonicalPath="/math/scientific" keywords={["scientific calculator online", "advanced calculator", "trigonometry calculator"]}>
       <Card className="shadow-medium max-w-md mx-auto">
         <CardContent className="p-6">
           <div className="bg-muted rounded-lg p-4 mb-4">

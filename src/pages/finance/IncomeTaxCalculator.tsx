@@ -111,6 +111,9 @@ const IncomeTaxCalculator = () => {
       icon={<FileText className="h-6 w-6 text-primary-foreground" />}
       backLink="/finance"
       backLabel="Finance Calculators"
+      category="Finance"
+      canonicalPath="/finance/income-tax"
+      keywords={["federal tax calculator", "tax bracket calculator", "tax estimator 2024"]}
     >
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-4">

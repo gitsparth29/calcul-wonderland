@@ -32,7 +32,7 @@ const GPACalculator = () => {
   };
 
   return (
-    <CalculatorLayout title="GPA Calculator" description="Calculate your Grade Point Average" backLink="/tools" backLabel="Utility Tools" icon={<GraduationCap className="h-8 w-8 text-primary-foreground" />}>
+    <CalculatorLayout title="GPA Calculator" description="Calculate your Grade Point Average" backLink="/tools" backLabel="Utility Tools" icon={<GraduationCap className="h-8 w-8 text-primary-foreground" />} category="Tools" canonicalPath="/tools/gpa" keywords={["college gpa calculator", "cumulative gpa", "grade point average"]}>
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">
           <CardHeader><CardTitle>Courses</CardTitle></CardHeader>
