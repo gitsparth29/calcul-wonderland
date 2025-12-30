@@ -68,6 +68,9 @@ const MortgageCalculator = () => {
           backLink="/finance"
           backLabel="Finance Calculators"
           icon={<Home className="h-8 w-8 text-primary-foreground" />}
+          category="Finance"
+          canonicalPath="/finance/mortgage"
+          keywords={["home loan calculator", "monthly payment calculator", "house payment", "mortgage payment estimator"]}
         >
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Input Section */}

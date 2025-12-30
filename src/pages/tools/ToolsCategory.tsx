@@ -1,6 +1,7 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CalculatorCard } from "@/components/home/CalculatorCard";
+import { SEOHead } from "@/components/seo/SEOHead";
 import { 
   Calendar,
   CalendarDays,
@@ -80,37 +81,52 @@ const calculators = [
 
 const ToolsCategory = () => {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-1 bg-gradient-hero">
-        <div className="container py-12">
-          <div className="text-center mb-12 animate-fade-in">
-            <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 mb-4 shadow-medium">
-              <Wrench className="h-8 w-8 text-primary-foreground" />
-            </div>
-            <h1 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-3">
-              Utility Tools
-            </h1>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Age, date, time, and everyday utility calculators
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
-            {calculators.map((calc, index) => (
-              <div
-                key={calc.title}
-                className="animate-slide-up"
-                style={{ animationDelay: `${index * 0.05}s` }}
-              >
-                <CalculatorCard {...calc} />
+    <>
+      <SEOHead
+        title="Utility Tools - Age, Date, Time & Conversion Calculators"
+        description="Free utility calculators for age, dates, time, GPA, grades, and unit conversions. Essential everyday tools for students, professionals, and everyone."
+        canonicalPath="/tools"
+        keywords={[
+          "age calculator",
+          "date calculator",
+          "time calculator",
+          "gpa calculator",
+          "unit converter",
+          "password generator"
+        ]}
+      />
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-1 bg-gradient-hero">
+          <div className="container py-12">
+            <header className="text-center mb-12 animate-fade-in">
+              <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 mb-4 shadow-medium" aria-hidden="true">
+                <Wrench className="h-8 w-8 text-primary-foreground" />
               </div>
-            ))}
+              <h1 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-3">
+                Utility Tools
+              </h1>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                Age, date, time, and everyday utility calculators
+              </p>
+            </header>
+
+            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto" aria-label="Utility tools list">
+              {calculators.map((calc, index) => (
+                <article
+                  key={calc.title}
+                  className="animate-slide-up"
+                  style={{ animationDelay: `${index * 0.05}s` }}
+                >
+                  <CalculatorCard {...calc} />
+                </article>
+              ))}
+            </section>
           </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 };
 
