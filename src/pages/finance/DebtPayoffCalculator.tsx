@@ -73,6 +73,9 @@ const DebtPayoffCalculator = () => {
       backLink="/finance"
       backLabel="Finance Calculators"
       icon={<Clock className="h-8 w-8 text-primary-foreground" />}
+      category="Finance"
+      canonicalPath="/finance/debt-payoff"
+      keywords={["debt snowball calculator", "debt avalanche", "pay off debt faster"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

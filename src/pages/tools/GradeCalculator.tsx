@@ -87,6 +87,9 @@ const GradeCalculator = () => {
       backLink="/tools"
       backLabel="Utility Tools"
       icon={<Award className="h-8 w-8 text-primary-foreground" />}
+      category="Tools"
+      canonicalPath="/tools/grade"
+      keywords={["weighted grade calculator", "final grade calculator", "class grade"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

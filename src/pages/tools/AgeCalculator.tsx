@@ -88,6 +88,9 @@ const AgeCalculator = () => {
           backLink="/tools"
           backLabel="Tools"
           icon={<Calendar className="h-8 w-8 text-primary-foreground" />}
+          category="Tools"
+          canonicalPath="/tools/age"
+          keywords={["birthday calculator", "how old am i", "age in days", "exact age"]}
         >
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Input Section */}

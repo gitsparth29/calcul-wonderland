@@ -56,6 +56,9 @@ const RetirementCalculator = () => {
       backLink="/finance"
       backLabel="Finance Calculators"
       icon={<Building className="h-8 w-8 text-primary-foreground" />}
+      category="Finance"
+      canonicalPath="/finance/retirement"
+      keywords={["retirement planning calculator", "401k calculator", "retirement savings", "pension calculator"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

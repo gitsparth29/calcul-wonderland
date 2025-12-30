@@ -64,6 +64,9 @@ const WaterIntakeCalculator = () => {
       backLink="/health"
       backLabel="Health Calculators"
       icon={<Droplets className="h-8 w-8 text-primary-foreground" />}
+      category="Health"
+      canonicalPath="/health/water-intake"
+      keywords={["daily water intake", "hydration calculator", "how much water to drink"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

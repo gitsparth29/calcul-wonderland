@@ -64,6 +64,9 @@ const BMRCalculator = () => {
       backLink="/health"
       backLabel="Health Calculators"
       icon={<Heart className="h-8 w-8 text-primary-foreground" />}
+      category="Health"
+      canonicalPath="/health/bmr"
+      keywords={["basal metabolic rate", "metabolism calculator", "resting metabolic rate"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

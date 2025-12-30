@@ -62,6 +62,9 @@ const AutoLoanCalculator = () => {
       backLink="/finance"
       backLabel="Finance Calculators"
       icon={<Car className="h-8 w-8 text-primary-foreground" />}
+      category="Finance"
+      canonicalPath="/finance/auto-loan"
+      keywords={["car loan calculator", "car payment calculator", "vehicle financing", "auto finance"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

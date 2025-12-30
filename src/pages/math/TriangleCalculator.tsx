@@ -79,6 +79,9 @@ const TriangleCalculator = () => {
       backLink="/math"
       backLabel="Math Calculators"
       icon={<Triangle className="h-8 w-8 text-primary-foreground" />}
+      category="Math"
+      canonicalPath="/math/triangle"
+      keywords={["triangle area calculator", "pythagorean theorem", "triangle angles"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

@@ -64,6 +64,9 @@ const ProteinIntakeCalculator = () => {
       backLink="/health"
       backLabel="Health Calculators"
       icon={<Drumstick className="h-8 w-8 text-primary-foreground" />}
+      category="Health"
+      canonicalPath="/health/protein-intake"
+      keywords={["protein requirements", "daily protein needs", "protein per meal"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

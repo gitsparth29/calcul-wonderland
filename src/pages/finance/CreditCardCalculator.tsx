@@ -61,6 +61,9 @@ const CreditCardCalculator = () => {
       backLink="/finance"
       backLabel="Finance Calculators"
       icon={<CreditCard className="h-8 w-8 text-primary-foreground" />}
+      category="Finance"
+      canonicalPath="/finance/credit-card"
+      keywords={["credit card payoff calculator", "credit card interest", "debt calculator"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

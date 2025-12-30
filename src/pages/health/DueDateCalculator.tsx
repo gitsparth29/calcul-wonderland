@@ -67,6 +67,9 @@ const DueDateCalculator = () => {
       backLink="/health"
       backLabel="Health Calculators"
       icon={<CalendarIcon className="h-8 w-8 text-primary-foreground" />}
+      category="Health"
+      canonicalPath="/health/due-date"
+      keywords={["baby due date", "pregnancy due date", "expected delivery date"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

@@ -110,6 +110,9 @@ const FractionCalculator = () => {
       backLink="/math"
       backLabel="Math Calculators"
       icon={<Divide className="h-8 w-8 text-primary-foreground" />}
+      category="Math"
+      canonicalPath="/math/fraction"
+      keywords={["fraction solver", "mixed number calculator", "simplify fractions"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

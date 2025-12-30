@@ -68,6 +68,9 @@ const StandardDeviationCalculator = () => {
       backLink="/math"
       backLabel="Math Calculators"
       icon={<BarChart3 className="h-8 w-8 text-primary-foreground" />}
+      category="Math"
+      canonicalPath="/math/standard-deviation"
+      keywords={["statistics calculator", "variance calculator", "mean calculator"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

@@ -32,7 +32,7 @@ const CalorieCalculator = () => {
   };
 
   return (
-    <CalculatorLayout title="Calorie Calculator" description="Calculate your daily calorie needs" backLink="/health" backLabel="Health Calculators" icon={<Flame className="h-8 w-8 text-primary-foreground" />}>
+    <CalculatorLayout title="Calorie Calculator" description="Calculate your daily calorie needs" backLink="/health" backLabel="Health Calculators" icon={<Flame className="h-8 w-8 text-primary-foreground" />} category="Health" canonicalPath="/health/calorie" keywords={["daily calorie calculator", "tdee calculator", "calorie intake", "weight loss calories"]}>
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">
           <CardHeader><CardTitle>Your Details</CardTitle></CardHeader>

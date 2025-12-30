@@ -57,6 +57,9 @@ const PercentageCalculator = () => {
           backLink="/math"
           backLabel="Math Calculators"
           icon={<Percent className="h-8 w-8 text-primary-foreground" />}
+          category="Math"
+          canonicalPath="/math/percentage"
+          keywords={["percent calculator", "percentage change", "discount calculator"]}
         >
           <div className="max-w-2xl mx-auto">
             {/* Calculation Type Tabs */}

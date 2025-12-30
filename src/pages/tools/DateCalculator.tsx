@@ -56,6 +56,9 @@ const DateCalculator = () => {
       backLink="/tools"
       backLabel="Utility Tools"
       icon={<CalendarDays className="h-8 w-8 text-primary-foreground" />}
+      category="Tools"
+      canonicalPath="/tools/date"
+      keywords={["date difference calculator", "days between dates", "add days to date"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

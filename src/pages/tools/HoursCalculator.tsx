@@ -65,6 +65,9 @@ const HoursCalculator = () => {
       backLink="/tools"
       backLabel="Utility Tools"
       icon={<Timer className="h-8 w-8 text-primary-foreground" />}
+      category="Tools"
+      canonicalPath="/tools/hours"
+      keywords={["time between calculator", "work hours calculator", "timesheet calculator"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

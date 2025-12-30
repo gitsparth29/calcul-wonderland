@@ -78,6 +78,9 @@ const BodyFatCalculator = () => {
       backLink="/health"
       backLabel="Health Calculators"
       icon={<Activity className="h-8 w-8 text-primary-foreground" />}
+      category="Health"
+      canonicalPath="/health/body-fat"
+      keywords={["body fat percentage", "navy body fat calculator", "lean body mass"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">

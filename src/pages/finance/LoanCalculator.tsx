@@ -51,6 +51,9 @@ const LoanCalculator = () => {
       backLink="/finance"
       backLabel="Finance Calculators"
       icon={<DollarSign className="h-8 w-8 text-primary-foreground" />}
+      category="Finance"
+      canonicalPath="/finance/loan"
+      keywords={["loan payment calculator", "personal loan calculator", "loan interest calculator"]}
     >
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="shadow-medium">
