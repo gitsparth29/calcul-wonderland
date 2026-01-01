@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { evaluate } from "mathjs";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -36,8 +37,9 @@ const ScientificCalculator = () => {
 
   const calculate = () => {
     try {
-      const result = eval(equation + display);
-      setDisplay(result.toString());
+      const expression = equation + display;
+      const result = evaluate(expression);
+      setDisplay(String(result));
       setEquation("");
     } catch { setDisplay("Error"); }
   };
