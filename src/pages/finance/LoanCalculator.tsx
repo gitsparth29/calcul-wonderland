@@ -4,6 +4,7 @@ import { InputGroup } from "@/components/calculator/InputGroup";
 import { ResultCard } from "@/components/calculator/ResultCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { DollarSign } from "lucide-react";
 
 const LoanCalculator = () => {
@@ -256,6 +257,104 @@ const LoanCalculator = () => {
           <li>✔ <strong>Smarter Borrowing Decisions</strong> — Compare loan terms, interest rates, and repayment structures before committing.</li>
           <li>✔ <strong>Fast, Simple, and Accurate</strong> — No spreadsheets or manual math—just instant results using transparent formulas.</li>
         </ul>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="mt-12" aria-label="Frequently Asked Questions">
+        <h2 className="font-heading text-2xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
+        <Accordion type="single" collapsible className="w-full space-y-2">
+
+          <AccordionItem value="faq-1" className="bg-card border border-border rounded-xl px-5">
+            <AccordionTrigger className="font-heading font-semibold text-foreground hover:no-underline">
+              How do I calculate my monthly loan payment?
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground">
+              Your monthly loan payment is calculated using the amortization formula: <strong>M = P × (r(1+r)^n) / ((1+r)^n − 1)</strong>, where P is the loan principal, r is the monthly interest rate (annual rate ÷ 12), and n is the total number of payments. Enter your loan amount, interest rate, and term above to get an instant result.
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="faq-2" className="bg-card border border-border rounded-xl px-5">
+            <AccordionTrigger className="font-heading font-semibold text-foreground hover:no-underline">
+              What is the difference between a loan and a mortgage?
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground">
+              A mortgage is a specific type of loan used to purchase real estate, secured by the property itself. A general loan can be used for any purpose (personal, auto, student, business) and may be secured or unsecured. Both use the same amortization principles for calculating payments, but mortgages typically have longer terms (15–30 years) and lower interest rates due to the collateral involved.
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="faq-3" className="bg-card border border-border rounded-xl px-5">
+            <AccordionTrigger className="font-heading font-semibold text-foreground hover:no-underline">
+              How does the interest rate affect my loan payment?
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground">
+              A higher interest rate increases both your monthly payment and the total interest paid over the life of the loan. For example, on a $20,000 loan over 5 years, raising the rate from 5% to 8% increases monthly payments by roughly $30 and adds over $1,000 in total interest. Even small rate differences compound significantly over longer terms.
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="faq-4" className="bg-card border border-border rounded-xl px-5">
+            <AccordionTrigger className="font-heading font-semibold text-foreground hover:no-underline">
+              Should I choose a shorter or longer loan term?
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground">
+              A shorter loan term means higher monthly payments but significantly less total interest paid—making it cheaper overall. A longer term lowers monthly payments, making borrowing more manageable month-to-month, but you'll pay considerably more in interest over time. Use this calculator to compare both scenarios and find the balance that fits your budget.
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="faq-5" className="bg-card border border-border rounded-xl px-5">
+            <AccordionTrigger className="font-heading font-semibold text-foreground hover:no-underline">
+              What is an amortization schedule?
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground">
+              An amortization schedule is a complete table of loan payments broken down month by month. It shows how much of each payment goes toward interest versus principal, and the remaining loan balance after each payment. In the early months, most of your payment covers interest. Over time, more goes toward reducing the principal. This schedule helps you see exactly how your loan is paid off.
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="faq-6" className="bg-card border border-border rounded-xl px-5">
+            <AccordionTrigger className="font-heading font-semibold text-foreground hover:no-underline">
+              What is APR and how is it different from the interest rate?
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground">
+              The interest rate is the base cost of borrowing the principal, expressed as a percentage. APR (Annual Percentage Rate) is broader—it includes the interest rate plus any lender fees, origination charges, or other costs, giving a more accurate picture of the true cost of the loan. When comparing loan offers, always compare APRs rather than just interest rates.
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="faq-7" className="bg-card border border-border rounded-xl px-5">
+            <AccordionTrigger className="font-heading font-semibold text-foreground hover:no-underline">
+              Can making extra payments reduce my loan faster?
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground">
+              Yes. Making extra payments—whether monthly, annually, or as lump sums—directly reduces your principal balance. This lowers the interest calculated on future payments and can shorten your loan term significantly. For example, adding $100/month to a 30-year mortgage can cut years off the repayment period and save tens of thousands in interest.
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="faq-8" className="bg-card border border-border rounded-xl px-5">
+            <AccordionTrigger className="font-heading font-semibold text-foreground hover:no-underline">
+              What credit score do I need to get a loan?
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground">
+              Credit score requirements vary by loan type and lender. Generally: <strong>740+</strong> qualifies for the best rates; <strong>670–739</strong> is good and most loans are accessible; <strong>580–669</strong> is fair and may result in higher rates; <strong>below 580</strong> may limit options to secured loans or specialist lenders. Improving your credit score before applying can significantly reduce your interest rate and total loan cost.
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="faq-9" className="bg-card border border-border rounded-xl px-5">
+            <AccordionTrigger className="font-heading font-semibold text-foreground hover:no-underline">
+              What is the difference between a fixed-rate and variable-rate loan?
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground">
+              A <strong>fixed-rate loan</strong> has an interest rate that stays the same for the entire loan term, giving you predictable payments. A <strong>variable-rate loan</strong> (also called adjustable-rate) has an interest rate that changes periodically based on a market index. Variable rates often start lower but carry the risk of increasing over time. This calculator uses a fixed-rate model to provide consistent, reliable estimates.
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="faq-10" className="bg-card border border-border rounded-xl px-5">
+            <AccordionTrigger className="font-heading font-semibold text-foreground hover:no-underline">
+              Is it better to make a larger down payment?
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground">
+              Generally, yes. A larger down payment reduces the loan principal, which lowers your monthly payment, reduces total interest paid, and may eliminate PMI on mortgages (typically required when the down payment is below 20%). However, you should weigh this against keeping an adequate emergency fund and not over-depleting liquid savings. The optimal down payment balances upfront cost with long-term savings.
+            </AccordionContent>
+          </AccordionItem>
+
+        </Accordion>
       </section>
     </CalculatorLayout>
   );
