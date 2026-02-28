@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { InputGroup } from "@/components/calculator/InputGroup";
 import { ResultCard } from "@/components/calculator/ResultCard";
@@ -9,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Wallet } from "lucide-react";
 
 const SalaryCalculator = () => {
+  const { formatCurrency, currencySymbol } = useCurrency();
   const [amount, setAmount] = useState("50000");
   const [payPeriod, setPayPeriod] = useState("yearly");
   const [hoursPerWeek, setHoursPerWeek] = useState("40");
@@ -57,8 +59,6 @@ const SalaryCalculator = () => {
     setResults({ hourly, daily, weekly, biweekly, monthly, yearly });
   };
 
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
 
   return (
     <CalculatorLayout
@@ -82,7 +82,7 @@ const SalaryCalculator = () => {
               value={amount}
               onChange={setAmount}
               placeholder="50000"
-              prefix="$"
+              prefix={currencySymbol}
               type="number"
             />
             <div className="space-y-2">

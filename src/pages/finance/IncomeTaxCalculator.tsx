@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { InputGroup } from "@/components/calculator/InputGroup";
 import { ResultCard } from "@/components/calculator/ResultCard";
@@ -51,6 +52,7 @@ const standardDeductions = {
 };
 
 const IncomeTaxCalculator = () => {
+  const { formatCurrency, currencySymbol } = useCurrency();
   const [grossIncome, setGrossIncome] = useState("");
   const [filingStatus, setFilingStatus] = useState<"single" | "married" | "head">("single");
   const [deductions, setDeductions] = useState("");
@@ -123,7 +125,7 @@ const IncomeTaxCalculator = () => {
             onChange={setGrossIncome}
             placeholder="75000"
             type="number"
-            prefix="$"
+            prefix={currencySymbol}
           />
           
           <div className="space-y-2">
@@ -146,7 +148,7 @@ const IncomeTaxCalculator = () => {
             onChange={setDeductions}
             placeholder={standardDeductions[filingStatus].toString()}
             type="number"
-            prefix="$"
+            prefix={currencySymbol}
           />
 
           <div className="flex gap-3 pt-4">
@@ -164,13 +166,13 @@ const IncomeTaxCalculator = () => {
             <>
               <ResultCard
                 label="Federal Income Tax"
-                value={`$${results.federalTax.toLocaleString(undefined, { maximumFractionDigits: 2 })}`}
+                value={formatCurrency(results.federalTax)}
                 subtext="Estimated annual federal tax"
                 highlight
               />
               <ResultCard
                 label="Taxable Income"
-                value={`$${results.taxableIncome.toLocaleString(undefined, { maximumFractionDigits: 2 })}`}
+                value={formatCurrency(results.taxableIncome)}
                 subtext="Income after deductions"
               />
               <ResultCard
@@ -185,7 +187,7 @@ const IncomeTaxCalculator = () => {
               />
               <ResultCard
                 label="After-Tax Income"
-                value={`$${results.afterTaxIncome.toLocaleString(undefined, { maximumFractionDigits: 2 })}`}
+                value={formatCurrency(results.afterTaxIncome)}
                 subtext="Take-home amount (federal only)"
               />
             </>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { InputGroup } from "@/components/calculator/InputGroup";
 import { ResultCard } from "@/components/calculator/ResultCard";
@@ -6,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { TrendingUp } from "lucide-react";
 
 const InflationCalculator = () => {
+  const { formatCurrency, currencySymbol } = useCurrency();
   const [currentAmount, setCurrentAmount] = useState("");
   const [inflationRate, setInflationRate] = useState("");
   const [years, setYears] = useState("");
@@ -64,7 +66,7 @@ const InflationCalculator = () => {
             onChange={setCurrentAmount}
             placeholder="10000"
             type="number"
-            prefix="$"
+            prefix={currencySymbol}
           />
           <InputGroup
             label="Annual Inflation Rate"
@@ -96,13 +98,13 @@ const InflationCalculator = () => {
             <>
               <ResultCard
                 label="Future Value Needed"
-                value={`$${results.futureValue.toLocaleString(undefined, { maximumFractionDigits: 2 })}`}
+                value={formatCurrency(results.futureValue)}
                 subtext="Amount needed to maintain same purchasing power"
                 highlight
               />
               <ResultCard
                 label="Future Purchasing Power"
-                value={`$${results.purchasingPower.toLocaleString(undefined, { maximumFractionDigits: 2 })}`}
+                value={formatCurrency(results.purchasingPower)}
                 subtext="What your current amount will be worth"
               />
               <ResultCard

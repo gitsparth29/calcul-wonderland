@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { InputGroup } from "@/components/calculator/InputGroup";
 import { ResultCard } from "@/components/calculator/ResultCard";
@@ -7,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Car } from "lucide-react";
 
 const AutoLoanCalculator = () => {
+  const { formatCurrency, currencySymbol } = useCurrency();
   const [carPrice, setCarPrice] = useState("25000");
   const [downPayment, setDownPayment] = useState("5000");
   const [tradeIn, setTradeIn] = useState("0");
@@ -52,8 +54,6 @@ const AutoLoanCalculator = () => {
     });
   };
 
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
 
   return (
     <CalculatorLayout
@@ -77,7 +77,7 @@ const AutoLoanCalculator = () => {
               value={carPrice}
               onChange={setCarPrice}
               placeholder="25000"
-              prefix="$"
+              prefix={currencySymbol}
               type="number"
             />
             <InputGroup
@@ -85,7 +85,7 @@ const AutoLoanCalculator = () => {
               value={downPayment}
               onChange={setDownPayment}
               placeholder="5000"
-              prefix="$"
+              prefix={currencySymbol}
               type="number"
             />
             <InputGroup
@@ -93,7 +93,7 @@ const AutoLoanCalculator = () => {
               value={tradeIn}
               onChange={setTradeIn}
               placeholder="0"
-              prefix="$"
+              prefix={currencySymbol}
               type="number"
             />
             <InputGroup

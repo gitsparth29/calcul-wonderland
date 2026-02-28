@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
@@ -10,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Home, DollarSign, Calendar, TrendingUp } from "lucide-react";
 
 const MortgageCalculator = () => {
+  const { formatCurrency: formatCurrencyCtx, currencySymbol } = useCurrency();
   const [homePrice, setHomePrice] = useState("300000");
   const [downPayment, setDownPayment] = useState("60000");
   const [loanTerm, setLoanTerm] = useState("30");
@@ -51,12 +53,10 @@ const MortgageCalculator = () => {
   }, [homePrice, downPayment, loanTerm, interestRate]);
 
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
+    return formatCurrencyCtx(value, {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
-    }).format(value);
+    });
   };
 
   return (
@@ -91,7 +91,7 @@ const MortgageCalculator = () => {
                   id="homePrice"
                   value={homePrice}
                   onChange={setHomePrice}
-                  prefix="$"
+                  prefix={currencySymbol}
                   placeholder="300,000"
                 />
                 
@@ -100,7 +100,7 @@ const MortgageCalculator = () => {
                   id="downPayment"
                   value={downPayment}
                   onChange={setDownPayment}
-                  prefix="$"
+                  prefix={currencySymbol}
                   placeholder="60,000"
                 />
                 

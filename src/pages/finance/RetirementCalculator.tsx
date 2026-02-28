@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { InputGroup } from "@/components/calculator/InputGroup";
 import { ResultCard } from "@/components/calculator/ResultCard";
@@ -7,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Building } from "lucide-react";
 
 const RetirementCalculator = () => {
+  const { formatCurrency, currencySymbol } = useCurrency();
   const [currentAge, setCurrentAge] = useState("30");
   const [retirementAge, setRetirementAge] = useState("65");
   const [currentSavings, setCurrentSavings] = useState("50000");
@@ -46,8 +48,6 @@ const RetirementCalculator = () => {
     setResults({ retirementSavings, monthlyIncome, totalContributions });
   };
 
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
 
   return (
     <CalculatorLayout
@@ -85,7 +85,7 @@ const RetirementCalculator = () => {
               value={currentSavings}
               onChange={setCurrentSavings}
               placeholder="50000"
-              prefix="$"
+              prefix={currencySymbol}
               type="number"
             />
             <InputGroup
@@ -93,7 +93,7 @@ const RetirementCalculator = () => {
               value={monthlyContribution}
               onChange={setMonthlyContribution}
               placeholder="500"
-              prefix="$"
+              prefix={currencySymbol}
               type="number"
             />
             <InputGroup

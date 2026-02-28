@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { InputGroup } from "@/components/calculator/InputGroup";
 import { ResultCard } from "@/components/calculator/ResultCard";
@@ -7,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { PiggyBank } from "lucide-react";
 
 const InvestmentCalculator = () => {
+  const { formatCurrency, currencySymbol } = useCurrency();
   const [startingAmount, setStartingAmount] = useState("5000");
   const [monthlyContribution, setMonthlyContribution] = useState("200");
   const [annualReturn, setAnnualReturn] = useState("8");
@@ -41,8 +43,6 @@ const InvestmentCalculator = () => {
     setResults({ finalBalance, totalContributions, totalGains });
   };
 
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
 
   return (
     <CalculatorLayout
@@ -66,7 +66,7 @@ const InvestmentCalculator = () => {
               value={startingAmount}
               onChange={setStartingAmount}
               placeholder="5000"
-              prefix="$"
+              prefix={currencySymbol}
               type="number"
             />
             <InputGroup
@@ -74,7 +74,7 @@ const InvestmentCalculator = () => {
               value={monthlyContribution}
               onChange={setMonthlyContribution}
               placeholder="200"
-              prefix="$"
+              prefix={currencySymbol}
               type="number"
             />
             <InputGroup

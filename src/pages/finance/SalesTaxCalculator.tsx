@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { InputGroup } from "@/components/calculator/InputGroup";
 import { ResultCard } from "@/components/calculator/ResultCard";
@@ -7,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Receipt } from "lucide-react";
 
 const SalesTaxCalculator = () => {
+  const { formatCurrency, currencySymbol } = useCurrency();
   const [price, setPrice] = useState("100");
   const [taxRate, setTaxRate] = useState("7");
   const [results, setResults] = useState<{
@@ -39,8 +41,6 @@ const SalesTaxCalculator = () => {
     setResults({ taxAmount, totalPrice: total, preTaxPrice });
   };
 
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
 
   return (
     <CalculatorLayout
@@ -64,7 +64,7 @@ const SalesTaxCalculator = () => {
               value={price}
               onChange={setPrice}
               placeholder="100"
-              prefix="$"
+              prefix={currencySymbol}
               type="number"
             />
             <InputGroup
