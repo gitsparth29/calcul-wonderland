@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { InputGroup } from "@/components/calculator/InputGroup";
 import { ResultCard } from "@/components/calculator/ResultCard";
@@ -14,6 +15,7 @@ import {
 import { Label } from "@/components/ui/label";
 
 const PaymentCalculator = () => {
+  const { formatCurrency, currencySymbol } = useCurrency();
   const [loanAmount, setLoanAmount] = useState("");
   const [interestRate, setInterestRate] = useState("");
   const [loanTerm, setLoanTerm] = useState("");
@@ -89,7 +91,7 @@ const PaymentCalculator = () => {
             onChange={setLoanAmount}
             placeholder="25000"
             type="number"
-            prefix="$"
+            prefix={currencySymbol}
           />
           <InputGroup
             label="Annual Interest Rate"
@@ -137,18 +139,18 @@ const PaymentCalculator = () => {
             <>
               <ResultCard
                 label="Monthly Payment"
-                value={`$${results.monthlyPayment.toLocaleString(undefined, { maximumFractionDigits: 2 })}`}
+                value={formatCurrency(results.monthlyPayment)}
                 subtext="Fixed payment amount"
                 highlight
               />
               <ResultCard
                 label="Total Payment"
-                value={`$${results.totalPayment.toLocaleString(undefined, { maximumFractionDigits: 2 })}`}
+                value={formatCurrency(results.totalPayment)}
                 subtext="Total of all payments"
               />
               <ResultCard
                 label="Total Interest"
-                value={`$${results.totalInterest.toLocaleString(undefined, { maximumFractionDigits: 2 })}`}
+                value={formatCurrency(results.totalInterest)}
                 subtext="Cost of borrowing"
               />
               <ResultCard

@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { InputGroup } from "@/components/calculator/InputGroup";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,6 +19,7 @@ interface AmortizationRow {
 }
 
 const AmortizationCalculator = () => {
+  const { formatCurrency, currencySymbol } = useCurrency();
   const [loanAmount, setLoanAmount] = useState("200000");
   const [interestRate, setInterestRate] = useState("6");
   const [loanTerm, setLoanTerm] = useState("30");
@@ -85,8 +87,6 @@ const AmortizationCalculator = () => {
     return years;
   }, [schedule]);
 
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
 
   return (
     <CalculatorLayout
@@ -111,7 +111,7 @@ const AmortizationCalculator = () => {
                 value={loanAmount}
                 onChange={setLoanAmount}
                 placeholder="200000"
-                prefix="$"
+                prefix={currencySymbol}
                 type="number"
               />
               <InputGroup

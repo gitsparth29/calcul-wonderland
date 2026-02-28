@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { InputGroup } from "@/components/calculator/InputGroup";
 import { ResultCard } from "@/components/calculator/ResultCard";
@@ -10,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { TrendingUp } from "lucide-react";
 
 const CompoundInterestCalculator = () => {
+  const { formatCurrency, currencySymbol } = useCurrency();
   const [principal, setPrincipal] = useState("10000");
   const [interestRate, setInterestRate] = useState("7");
   const [years, setYears] = useState("10");
@@ -68,8 +70,6 @@ const CompoundInterestCalculator = () => {
     });
   };
 
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
 
   return (
     <CalculatorLayout
@@ -93,7 +93,7 @@ const CompoundInterestCalculator = () => {
               value={principal}
               onChange={setPrincipal}
               placeholder="10000"
-              prefix="$"
+              prefix={currencySymbol}
               type="number"
             />
             <InputGroup
@@ -132,7 +132,7 @@ const CompoundInterestCalculator = () => {
               value={monthlyContribution}
               onChange={setMonthlyContribution}
               placeholder="100"
-              prefix="$"
+              prefix={currencySymbol}
               type="number"
             />
             <Button onClick={calculate} className="w-full" size="lg">

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { InputGroup } from "@/components/calculator/InputGroup";
 import { ResultCard } from "@/components/calculator/ResultCard";
@@ -7,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Clock } from "lucide-react";
 
 const DebtPayoffCalculator = () => {
+  const { formatCurrency, currencySymbol } = useCurrency();
   const [debtAmount, setDebtAmount] = useState("10000");
   const [interestRate, setInterestRate] = useState("15");
   const [monthlyPayment, setMonthlyPayment] = useState("300");
@@ -55,8 +57,6 @@ const DebtPayoffCalculator = () => {
     });
   };
 
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
 
   const formatMonths = (months: number) => {
     const years = Math.floor(months / 12);
@@ -88,7 +88,7 @@ const DebtPayoffCalculator = () => {
               value={debtAmount}
               onChange={setDebtAmount}
               placeholder="10000"
-              prefix="$"
+              prefix={currencySymbol}
               type="number"
             />
             <InputGroup
@@ -104,7 +104,7 @@ const DebtPayoffCalculator = () => {
               value={monthlyPayment}
               onChange={setMonthlyPayment}
               placeholder="300"
-              prefix="$"
+              prefix={currencySymbol}
               type="number"
             />
             <InputGroup
@@ -112,7 +112,7 @@ const DebtPayoffCalculator = () => {
               value={extraPayment}
               onChange={setExtraPayment}
               placeholder="0"
-              prefix="$"
+              prefix={currencySymbol}
               type="number"
             />
             <Button onClick={calculate} className="w-full" size="lg">

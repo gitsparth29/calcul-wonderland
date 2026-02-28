@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { PrintButton } from "@/components/calculator/PrintButton";
 import { CalculatorSEO } from "@/components/seo/CalculatorSEO";
+import { CurrencySelector } from "@/components/calculator/CurrencySelector";
 
 interface CalculatorLayoutProps {
   title: string;
@@ -67,6 +68,11 @@ export const CalculatorLayout = ({
               <p className="hidden print:block text-sm text-muted-foreground mt-2">
                 Calculated on {new Date().toLocaleDateString()}
               </p>
+              {category === "Finance" && (
+                <div className="mt-4 flex justify-center print:hidden">
+                  <CurrencySelector />
+                </div>
+              )}
             </header>
 
             <section className="animate-slide-up" style={{ animationDelay: "0.1s" }} data-results aria-label="Calculator inputs and results">

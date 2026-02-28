@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { InputGroup } from "@/components/calculator/InputGroup";
 import { ResultCard } from "@/components/calculator/ResultCard";
@@ -7,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { CreditCard } from "lucide-react";
 
 const CreditCardCalculator = () => {
+  const { formatCurrency, currencySymbol } = useCurrency();
   const [balance, setBalance] = useState("5000");
   const [interestRate, setInterestRate] = useState("18");
   const [monthlyPayment, setMonthlyPayment] = useState("200");
@@ -43,8 +45,6 @@ const CreditCardCalculator = () => {
     setResults({ monthsToPayoff, totalInterest, totalPayment });
   };
 
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
 
   const formatMonths = (months: number) => {
     const years = Math.floor(months / 12);
@@ -76,7 +76,7 @@ const CreditCardCalculator = () => {
               value={balance}
               onChange={setBalance}
               placeholder="5000"
-              prefix="$"
+              prefix={currencySymbol}
               type="number"
             />
             <InputGroup
@@ -92,7 +92,7 @@ const CreditCardCalculator = () => {
               value={monthlyPayment}
               onChange={setMonthlyPayment}
               placeholder="200"
-              prefix="$"
+              prefix={currencySymbol}
               type="number"
             />
             <Button onClick={calculate} className="w-full" size="lg">

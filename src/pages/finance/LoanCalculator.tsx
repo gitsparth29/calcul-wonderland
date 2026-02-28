@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { InputGroup } from "@/components/calculator/InputGroup";
 import { ResultCard } from "@/components/calculator/ResultCard";
@@ -8,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { DollarSign } from "lucide-react";
 
 const LoanCalculator = () => {
+  const { formatCurrency, currencySymbol } = useCurrency();
   const [loanAmount, setLoanAmount] = useState("10000");
   const [interestRate, setInterestRate] = useState("5");
   const [loanTerm, setLoanTerm] = useState("3");
@@ -42,8 +44,6 @@ const LoanCalculator = () => {
     setResults({ monthlyPayment, totalPayment, totalInterest });
   };
 
-  const formatCurrency = (value: number) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
 
   return (
     <CalculatorLayout
@@ -67,7 +67,7 @@ const LoanCalculator = () => {
               value={loanAmount}
               onChange={setLoanAmount}
               placeholder="10000"
-              prefix="$"
+              prefix={currencySymbol}
               type="number"
             />
             <InputGroup
