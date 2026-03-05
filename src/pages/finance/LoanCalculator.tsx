@@ -3,6 +3,7 @@ import { useCurrency } from "@/contexts/CurrencyContext";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
 import { InputGroup } from "@/components/calculator/InputGroup";
 import { ResultCard } from "@/components/calculator/ResultCard";
+import { LoanAmortizationSchedule } from "@/components/calculator/LoanAmortizationSchedule";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -108,6 +109,16 @@ const LoanCalculator = () => {
           />
         </div>
       </div>
+
+      {/* Amortization Schedule */}
+      {results && (
+        <LoanAmortizationSchedule
+          loanAmount={parseFloat(loanAmount)}
+          interestRate={parseFloat(interestRate)}
+          loanTermYears={parseFloat(loanTerm)}
+          monthlyPayment={results.monthlyPayment}
+        />
+      )}
 
       {/* SEO Content Section */}
       <section className="mt-12 max-w-none" aria-label="About Loan Calculator">
