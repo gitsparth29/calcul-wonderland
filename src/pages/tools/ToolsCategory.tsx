@@ -13,6 +13,7 @@ import {
   Network,
   Key,
   ArrowLeftRight,
+  ShieldCheck,
   Wrench
 } from "lucide-react";
 
@@ -76,6 +77,12 @@ const calculators = [
     description: "Convert between various units",
     icon: <ArrowLeftRight className="h-5 w-5" />,
     path: "/tools/conversion",
+  },
+  {
+    title: "UK ILR Calculator",
+    description: "Check Indefinite Leave to Remain eligibility",
+    icon: <ShieldCheck className="h-5 w-5" />,
+    path: "/tools/ilr",
   },
 ];
 
