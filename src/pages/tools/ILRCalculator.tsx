@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CalculatorLayout } from "@/components/layout/CalculatorLayout";
@@ -13,8 +13,33 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ShieldCheck, Plus, Trash2, AlertTriangle, CheckCircle2, XCircle } from "lucide-react";
-import { addYears, addDays, differenceInCalendarDays, format, parseISO, isValid } from "date-fns";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
+  ShieldCheck,
+  Plus,
+  Trash2,
+  AlertTriangle,
+  CheckCircle2,
+  XCircle,
+  Copy,
+  Info,
+} from "lucide-react";
+import {
+  addYears,
+  addDays,
+  differenceInCalendarDays,
+  format,
+  parseISO,
+  isValid,
+  max as dateMax,
+  min as dateMin,
+} from "date-fns";
+import { toast } from "@/hooks/use-toast";
 
 type VisaType =
   | "skilled-worker"
@@ -33,6 +58,15 @@ const visaOptions: { value: VisaType; label: string }[] = [
   { value: "long-residence", label: "10-Year Long Residence" },
 ];
 
+const visaNotes: Record<VisaType, string> = {
+  "skilled-worker": "Must meet salary and continuous employment requirements.",
+  spouse: "Relationship must still be valid and genuine at the time of application.",
+  "global-talent": "Endorsement or eligibility evidence must still apply.",
+  "innovator-founder": "Business must meet ongoing endorsement criteria.",
+  "health-care": "Must remain in eligible health & care employment.",
+  "long-residence": "Different absence rules may apply over the 10-year period.",
+};
+
 interface Trip {
   id: string;
   departure: string;
@@ -45,11 +79,44 @@ const newTrip = (): Trip => ({
   return: "",
 });
 
+const STORAGE_KEY = "ilr-calculator-state-v1";
+
 const ILRCalculator = () => {
   const [visaType, setVisaType] = useState<VisaType>("skilled-worker");
   const [visaStart, setVisaStart] = useState("");
   const [entryDate, setEntryDate] = useState("");
   const [trips, setTrips] = useState<Trip[]>([newTrip()]);
+  const [hydrated, setHydrated] = useState(false);
+
+  // Restore from localStorage
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const data = JSON.parse(raw);
+        if (data.visaType) setVisaType(data.visaType);
+        if (data.visaStart) setVisaStart(data.visaStart);
+        if (data.entryDate) setEntryDate(data.entryDate);
+        if (Array.isArray(data.trips) && data.trips.length) setTrips(data.trips);
+      }
+    } catch {
+      // ignore
+    }
+    setHydrated(true);
+  }, []);
+
+  // Persist
+  useEffect(() => {
+    if (!hydrated) return;
+    try {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ visaType, visaStart, entryDate, trips })
+      );
+    } catch {
+      // ignore
+    }
+  }, [visaType, visaStart, entryDate, trips, hydrated]);
 
   const results = useMemo(() => {
     if (!visaStart) return null;
@@ -59,6 +126,8 @@ const ILRCalculator = () => {
     const years = visaType === "long-residence" ? 10 : 5;
     const eligibility = addYears(start, years);
     const earliest = addDays(eligibility, -28);
+    const today = new Date();
+    const daysRemaining = differenceInCalendarDays(earliest, today);
 
     const tripData = trips
       .filter((t) => t.departure && t.return)
@@ -72,37 +141,54 @@ const ILRCalculator = () => {
 
     const totalDays = tripData.reduce((s, t) => s + t.days, 0);
     const longest = tripData.reduce((m, t) => Math.max(m, t.days), 0);
+    const average = tripData.length ? Math.round(totalDays / tripData.length) : 0;
 
-    // Rolling 12-month check for 5-year routes
+    // Rolling 12-month windows anchored at each trip departure.
+    // Count the actual days within the window (handles partial overlap).
     let maxRolling = 0;
-    if (visaType !== "long-residence" && tripData.length > 0) {
+    let worstWindow: { start: Date; end: Date } | null = null;
+
+    if (tripData.length > 0) {
       const sorted = [...tripData].sort((a, b) => a.departure.getTime() - b.departure.getTime());
       for (const anchor of sorted) {
-        const windowEnd = addDays(anchor.departure, 365);
+        const windowStart = anchor.departure;
+        const windowEnd = addDays(windowStart, 365);
         let sum = 0;
         for (const t of sorted) {
-          if (t.departure >= anchor.departure && t.departure < windowEnd) {
-            sum += t.days;
-          }
+          // overlap of [t.departure, t.return] with [windowStart, windowEnd]
+          const oStart = dateMax([t.departure, windowStart]);
+          const oEnd = dateMin([t.return, windowEnd]);
+          const overlap = differenceInCalendarDays(oEnd, oStart);
+          if (overlap > 0) sum += overlap;
         }
-        if (sum > maxRolling) maxRolling = sum;
+        if (sum > maxRolling) {
+          maxRolling = sum;
+          worstWindow = { start: windowStart, end: windowEnd };
+        }
       }
     }
 
     let status: "eligible" | "risk" | "not-eligible" = "eligible";
     if (visaType !== "long-residence") {
       if (maxRolling > 180) status = "not-eligible";
-      else if (maxRolling > 150) status = "risk";
+      else if (maxRolling >= 150) status = "risk";
     }
+
+    const riskLabel =
+      status === "not-eligible" ? "High Risk" : status === "risk" ? "Borderline" : "Safe";
 
     return {
       eligibility,
       earliest,
+      daysRemaining,
       totalDays,
       longest,
+      average,
       tripCount: tripData.length,
       maxRolling,
+      worstWindow,
       status,
+      riskLabel,
     };
   }, [visaType, visaStart, trips]);
 
@@ -126,23 +212,61 @@ const ILRCalculator = () => {
     setVisaStart("");
     setEntryDate("");
     setTrips([newTrip()]);
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // ignore
+    }
+  };
+
+  const copyResults = async () => {
+    if (!results) return;
+    const lines = [
+      `UK ILR Eligibility Summary`,
+      `Visa: ${visaOptions.find((v) => v.value === visaType)?.label}`,
+      `Eligibility date: ${format(results.eligibility, "MMMM d, yyyy")}`,
+      `Earliest application date: ${format(results.earliest, "MMMM d, yyyy")}`,
+      results.daysRemaining > 0
+        ? `Days remaining: ${results.daysRemaining}`
+        : `You can apply now.`,
+      `Total absence days: ${results.totalDays}`,
+      `Number of trips: ${results.tripCount}`,
+      `Longest trip: ${results.longest} days`,
+      `Average trip: ${results.average} days`,
+      `Max in any rolling 12 months: ${results.maxRolling} days`,
+      `Status: ${results.riskLabel}`,
+      ``,
+      `I checked my ILR eligibility. I can apply on ${format(
+        results.earliest,
+        "MMMM d, yyyy"
+      )} and my total absence is ${results.totalDays} days.`,
+    ];
+    try {
+      await navigator.clipboard.writeText(lines.join("\n"));
+      toast({ title: "Copied", description: "Results copied to clipboard." });
+    } catch {
+      toast({ title: "Copy failed", description: "Could not access clipboard.", variant: "destructive" });
+    }
   };
 
   const statusConfig = {
     eligible: {
-      label: "Eligible",
+      label: "Safe",
       icon: <CheckCircle2 className="h-5 w-5" />,
-      className: "bg-green-100 text-green-800 border-green-300 dark:bg-green-900/30 dark:text-green-300 dark:border-green-700",
+      className:
+        "bg-green-100 text-green-800 border-green-300 dark:bg-green-900/30 dark:text-green-300 dark:border-green-700",
     },
     risk: {
-      label: "Risk – Near Limit",
+      label: "Borderline – Near Limit",
       icon: <AlertTriangle className="h-5 w-5" />,
-      className: "bg-yellow-100 text-yellow-800 border-yellow-300 dark:bg-yellow-900/30 dark:text-yellow-300 dark:border-yellow-700",
+      className:
+        "bg-yellow-100 text-yellow-800 border-yellow-300 dark:bg-yellow-900/30 dark:text-yellow-300 dark:border-yellow-700",
     },
     "not-eligible": {
-      label: "Not Eligible",
+      label: "High Risk – Exceeds 180 Days",
       icon: <XCircle className="h-5 w-5" />,
-      className: "bg-red-100 text-red-800 border-red-300 dark:bg-red-900/30 dark:text-red-300 dark:border-red-700",
+      className:
+        "bg-red-100 text-red-800 border-red-300 dark:bg-red-900/30 dark:text-red-300 dark:border-red-700",
     },
   };
 
@@ -163,9 +287,7 @@ const ILRCalculator = () => {
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Input Section */}
             <div className="bg-card rounded-2xl border border-border p-6 shadow-soft space-y-5">
-              <h2 className="font-heading text-lg font-semibold text-foreground">
-                Your Details
-              </h2>
+              <h2 className="font-heading text-lg font-semibold text-foreground">Your Details</h2>
 
               <div className="space-y-2">
                 <Label htmlFor="visaType" className="text-sm font-medium text-foreground">
@@ -183,6 +305,10 @@ const ILRCalculator = () => {
                     ))}
                   </SelectContent>
                 </Select>
+                <p className="text-xs text-muted-foreground flex items-start gap-1.5 pt-1">
+                  <Info className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+                  <span>{visaNotes[visaType]}</span>
+                </p>
               </div>
 
               <div className="space-y-2">
@@ -283,7 +409,11 @@ const ILRCalculator = () => {
                   <ResultCard
                     label="Earliest Application Date"
                     value={format(results.earliest, "MMMM d, yyyy")}
-                    subtext="28 days before eligibility"
+                    subtext={
+                      results.daysRemaining > 0
+                        ? `You can apply in ${results.daysRemaining} days`
+                        : "You can apply now"
+                    }
                   />
 
                   <div className="grid grid-cols-2 gap-4">
@@ -292,13 +422,15 @@ const ILRCalculator = () => {
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
-                    <ResultCard label="Longest Trip (days)" value={results.longest} />
-                    <ResultCard
-                      label="Max Rolling 12-Month"
-                      value={results.maxRolling}
-                      subtext="180-day limit"
-                    />
+                    <ResultCard label="Longest Trip" value={`${results.longest} days`} />
+                    <ResultCard label="Average Trip" value={`${results.average} days`} />
                   </div>
+
+                  <ResultCard
+                    label="Max in Any Rolling 12 Months"
+                    value={`${results.maxRolling} days`}
+                    subtext="180-day rule limit"
+                  />
 
                   <div
                     className={`rounded-xl border p-5 flex items-center gap-3 ${statusConfig[results.status].className}`}
@@ -306,13 +438,23 @@ const ILRCalculator = () => {
                     {statusConfig[results.status].icon}
                     <div>
                       <p className="text-xs font-medium uppercase tracking-wide opacity-80">
-                        Status
+                        Risk Level
                       </p>
-                      <p className="font-heading text-lg font-bold">
-                        {statusConfig[results.status].label}
-                      </p>
+                      <p className="font-heading text-lg font-bold">{results.riskLabel}</p>
                     </div>
                   </div>
+
+                  {results.status === "not-eligible" && results.worstWindow && (
+                    <div className="rounded-xl border border-red-300 bg-red-50 dark:bg-red-900/20 dark:border-red-700 p-4 text-sm text-red-800 dark:text-red-300">
+                      ⚠️ Between {format(results.worstWindow.start, "MMM d, yyyy")} and{" "}
+                      {format(results.worstWindow.end, "MMM d, yyyy")}, absences exceed 180 days.
+                    </div>
+                  )}
+
+                  <Button variant="outline" className="w-full" onClick={copyResults}>
+                    <Copy className="h-4 w-4 mr-2" />
+                    Copy Results
+                  </Button>
 
                   <p className="text-xs text-muted-foreground text-center pt-2">
                     This tool provides guidance only and is not legal advice.
@@ -354,6 +496,41 @@ const ILRCalculator = () => {
                 Applying earlier than this may result in your application being refused, so timing
                 your application correctly is important.
               </p>
+            </div>
+
+            <div>
+              <h2 className="font-heading text-2xl font-bold mb-3">Frequently Asked Questions</h2>
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="q1">
+                  <AccordionTrigger>What is the 180-day rule?</AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    You must not be outside the UK for more than 180 days in any rolling 12-month
+                    period during your qualifying residence. Exceeding this can break continuous
+                    residence for ILR.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="q2">
+                  <AccordionTrigger>Can I apply 28 days early?</AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Yes. The Home Office allows you to submit your ILR application up to 28 days
+                    before completing your qualifying period. Applying any earlier risks refusal.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="q3">
+                  <AccordionTrigger>What counts as absence?</AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Any whole day spent outside the UK counts toward your absence total. The day of
+                    departure and the day of return are usually not counted as full days away.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="q4">
+                  <AccordionTrigger>Are there exceptions to the 180-day rule?</AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Limited exceptions exist for serious illness, conflict, natural disasters, or
+                    research-related travel. Always check current Home Office guidance.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </div>
           </section>
         </CalculatorLayout>
