@@ -62,6 +62,7 @@ import GradeCalculator from "./pages/tools/GradeCalculator";
 import ConcreteCalculator from "./pages/tools/ConcreteCalculator";
 import SubnetCalculator from "./pages/tools/SubnetCalculator";
 import UnitConverter from "./pages/tools/UnitConverter";
+import ILRCalculator from "./pages/tools/ILRCalculator";
 
 const queryClient = new QueryClient();
 
@@ -128,6 +129,7 @@ const App = () => (
           <Route path="/tools/concrete" element={<ConcreteCalculator />} />
           <Route path="/tools/subnet" element={<SubnetCalculator />} />
           <Route path="/tools/conversion" element={<UnitConverter />} />
+          <Route path="/tools/ilr" element={<ILRCalculator />} />
           
             <Route path="*" element={<NotFound />} />
           </Routes>
